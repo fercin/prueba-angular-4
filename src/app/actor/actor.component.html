@@ -1,0 +1,76 @@
+
+<br><br>
+
+<button id="btnatras" [routerLink]="['/home']" type="button" class="btn btn-danger">Volver Atras</button>
+
+<ng-container *ngIf="actor.sexo=='M'; then Hombre; else Mujer"></ng-container>
+
+
+<!-- template de hombre -->
+<ng-template #Hombre>
+
+<h1 class="text-center">
+  El Actor: {{actor.nombre + " " + actor.apellido}}
+</h1>
+
+<br><br>
+<h3 class="text-center">Este actor participo en las siguientes peliculas</h3>
+<br>
+<table class="table" align="center">
+  <thead class="thead-dark">
+    <tr>
+
+      <th>Titulo</th>
+      <th>Género</th>
+      <th>año</th>
+      <th>sinopsis</th>
+
+
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr class="table-secondary" *ngFor="let objecto of actor.PeliculaActores; let i= index;">
+      <td>{{objecto.Peliculas.titulo}}</td>
+      <td>{{objecto.Peliculas.genero}}</td>
+      <td>{{objecto.Peliculas.ano}}</td>
+      <td>{{objecto.Peliculas.sinopsis}}</td>
+
+  </tbody>
+</table>
+</ng-template>
+
+
+<!-- template de mujer -->
+<ng-template #Mujer>
+
+<h1 class="text-center"> La Actriz: {{actor.nombre + " " + actor.apellido}}</h1>
+
+<br><br>
+<h3 class="text-center">Esta actriz participo en las siguientes peliculas</h3>
+<br>
+<table class="table" align="center">
+  <thead class="thead-dark">
+    <tr>
+
+      <th>Titulo</th>
+      <th>Género</th>
+      <th>año</th>
+      <th>sinopsis</th>
+
+
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr class="table-secondary" *ngFor="let objecto of actor.PeliculaActores; let i= index;">
+      <td>{{objecto.Peliculas.titulo}}</td>
+      <td>{{objecto.Peliculas.genero}}</td>
+      <td>{{objecto.Peliculas.ano}}</td>
+      <td>{{objecto.Peliculas.sinopsis}}</td>
+
+  </tbody>
+</table>
+</ng-template>

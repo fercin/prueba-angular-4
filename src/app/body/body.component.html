@@ -1,0 +1,61 @@
+
+<button type="button" class="btn btn-warning" id="btnasociar" data-toggle="modal" data-target="#asociarModal">Asociar Actores y peliculas</button>
+
+  <br><br>
+  <app-lista-pelicula></app-lista-pelicula>
+  <br><br>
+
+  <app-lista-actores></app-lista-actores>
+
+
+
+
+
+
+<!-- modal agregar -->
+<div class="modal fade" id="asociarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Asociar Actores y Peliculas</h5>
+
+
+      </div>
+      <div class="modal-body">
+
+        <br />
+
+
+
+
+      <div class="btn-group alejar" id="alejar2" data-toggle="buttons">
+          <span class="input-group-addon" id="basic-addon1">Peliculas</span>
+          <select class="custom-select" name="numeroactor" [(ngModel)]="asociar.idpelicula">
+              <option value="0" selected>selecciona una pelicula</option>
+            <option *ngFor="let peli of peliculas" [value]="peli.id">{{peli.titulo}}</option>
+          </select>
+      </div>
+
+
+
+      <br>
+      <br>
+
+      <div class="btn-group alejar" id="alejar2" data-toggle="buttons">
+        <span class="input-group-addon" id="basic-addon1">Actores</span>
+        <select class="custom-select" name="numeropelicula" [(ngModel)]="asociar.idactor">
+          <option value="0" selected>selecciona un actor</option>
+          <option *ngFor="let actor of actores" [value]="actor.id">{{actor.nombre + " " + actor.apellido}}</option>
+        </select>
+    </div>
+
+      </div>
+
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardarasociar(asociar)">Asociar</button>
+      </div>
+    </div>
+  </div>
+</div>

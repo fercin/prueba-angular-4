@@ -1,0 +1,33 @@
+
+<br><br>
+
+<button id="btnatras" [routerLink]="['/home']" type="button" class="btn btn-danger">Volver Atras</button>
+<h1 class="text-center">
+  La pelicula: {{pelicula.titulo}}
+
+</h1>
+
+<br><br>
+<h3 class="text-center">Esta pelicula contiene los siguientes actores</h3>
+<br>
+<table class="table" align="center">
+  <thead class="thead-dark">
+    <tr>
+
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Sexo</th>
+
+
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr class="table-secondary" *ngFor="let objecto of pelicula.PeliculaActores; let i= index;">
+      <td>{{objecto.Actores.nombre}}</td>
+      <td>{{objecto.Actores.apellido}}</td>
+      <td>{{objecto.Actores.sexo}}</td>
+
+  </tbody>
+</table>

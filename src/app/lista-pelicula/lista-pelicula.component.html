@@ -1,0 +1,159 @@
+
+  <h1 class="center">Lista de Peliculas</h1>
+<div id="listapelicula">
+<button id="btnagregar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+  <b>Agregar pelicula</b>
+
+</button>
+	<table class="table" align="center">
+		<thead class="thead-dark">
+			<tr>
+
+				<th>Titulo</th>
+        <th>Género</th>
+        <th>Año</th>
+        <th>Sinopsis</th>
+        <th></th>
+
+
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr class="table-secondary" *ngFor="let pelicula of listapelicula">
+				<td>{{pelicula.titulo}}</td>
+				<td>{{pelicula.genero}}</td>
+        <td>{{pelicula.ano}}</td>
+        <td>{{pelicula.sinopsis}}</td>
+				<td>
+            <i class="fa fa-eye" aria-hidden="true" (click)="verpelicula(pelicula.id)" ></i>
+          <i class="fa fa-pencil fa-lg" aria-hidden="true" (click)="editar(pelicula)"></i>
+          <i class="fa fa-trash-o fa-lg" aria-hidden="true" (click)="eliminarpelicula(pelicula.id)"></i>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+
+<!-- <img src="/src/images/trash-256.png" alt=""> -->
+
+<!-- Modal Agregar -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Pelicula</h5>
+
+
+      </div>
+      <div class="modal-body">
+
+        <br />
+
+     <div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Titulo</span>
+		  <input type="text" class="form-control" placeholder="Titulo" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pelicula.titulo" >
+		</div>
+
+		<div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Genero</span>
+		  <input type="text" class="form-control" placeholder="Genero" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pelicula.genero">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">año</span>
+        <input type="text" class="form-control" placeholder="año de la pelicula" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="pelicula.ano">
+      </div>
+
+      <div class="form-group">
+          <span class="input-group-addon" id="basic-addon1">Sinopsis</span>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"  [(ngModel)]="pelicula.sinopsis"></textarea>
+        </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardarpelicula(pelicula)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <!-- Modal Editar -->
+<div class="modal fade" id="EditarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar Persona</h5>
+
+
+      </div>
+      <div class="modal-body">
+
+        <br />
+
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Titulo</span>
+            <input type="text" class="form-control" placeholder="Titulo" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pelicula.titulo"  >
+          </div>
+
+          <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">Genero</span>
+            <input type="text" class="form-control" placeholder="Genero" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pelicula.genero" >
+          </div>
+
+          <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">año</span>
+              <input type="text" class="form-control" placeholder="año de la pelicula" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="pelicula.ano">
+            </div>
+
+            <div class="form-group">
+                <span class="input-group-addon" id="basic-addon1">Sinopsis</span>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" [(ngModel)]="pelicula.sinopsis"></textarea>
+              </div>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardareditar(pelicula)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="EliminarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Eliminar Pelicula</h5>
+        </div>
+        <div class="modal-body">
+
+          <br>
+          <p>¿Desea eliminar esta pelicula?</p>
+
+
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminar()">Borrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+

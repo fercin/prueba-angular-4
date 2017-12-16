@@ -1,0 +1,16 @@
+table{
+	width: 80vw;
+	table-layout: fixed;
+
+}
+
+#listapelicula{
+
+	position: relative;
+	align: center;
+}
+
+#btnatras{
+  position: relative;
+  left:50px; ;
+}

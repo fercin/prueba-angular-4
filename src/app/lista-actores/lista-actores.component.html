@@ -1,0 +1,160 @@
+  <h1 class="center">Lista de Actores</h1>
+
+
+<div id="listapelicula">
+  <button id="btnagregar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#actoragregarModal">
+    <b>Agregar Actor o Actriz</b>
+    </button>
+
+  <table class="table" align="center">
+		<thead class="thead-dark">
+			<tr>
+
+				<th>Nombre</th>
+        <th>Apellido</th>
+        <th>Sexo</th>
+        <th></th>
+
+
+
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr class="table-secondary" *ngFor="let actor of listaactor">
+				<td>{{actor.nombre}}</td>
+				<td>{{actor.apellido}}</td>
+        <td>{{actor.sexo}}</td>
+
+				<td>
+          <i class="fa fa-eye" aria-hidden="true" (click)="verActor(actor.id)" ></i>
+          <i class="fa fa-pencil fa-lg" aria-hidden="true" data-toggle="modal" data-target="#actoreditarModal" (click)="editar(actor)"></i>
+          <i class="fa fa-trash-o fa-lg" aria-hidden="true" data-toggle="modal" data-target="#EliminarModalactor" (click)="eliminar(actor.id)"></i>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
+</div>
+
+
+
+
+<!-- modal agregar -->
+<div class="modal fade" id="actoragregarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Actor</h5>
+
+
+      </div>
+      <div class="modal-body">
+
+        <br />
+
+     <div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Nombre</span>
+		  <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="actor.nombre" >
+		</div>
+
+		<div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Apellido</span>
+		  <input type="text" class="form-control" placeholder="Apellido" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="actor.apellido">
+    </div>
+
+    <div class="btn-group alejar top" data-toggle="buttons">
+        <span class="input-group-addon" id="basic-addon1">Sexo</span>
+        <label class="btn btn-secondary left bajar rojo" >
+            <input  type="radio" name="sexo" value="M" checked active>Hombre
+        </label>
+      <label class="btn btn-secondary left bajar">
+        <input class="rojo" type="radio" name="sexo" value="F">Mujer
+      </label>
+      </div>
+          <br>
+
+
+      </div>
+
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardaractor(actor)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+
+<div class="modal fade" id="actoreditarModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Actualizar Actor</h5>
+
+
+      </div>
+      <div class="modal-body">
+
+        <br />
+
+     <div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Nombre</span>
+		  <input type="text" class="form-control" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="actor.nombre" >
+		</div>
+
+		<div class="input-group">
+		  <span class="input-group-addon" id="basic-addon1">Apellido</span>
+		  <input type="text" class="form-control" placeholder="Apellido" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="actor.apellido">
+    </div>
+
+    <div class="btn-group alejar" id="alejar2" data-toggle="buttons">
+      <span class="input-group-addon" id="basic-addon1">Sexo</span>
+      <select  class="custom-select" name="numeroactor"  [(ngModel)]="actor.sexo">
+        <option value="M">Masculino </option>
+        <option value="F">Femenino </option>
+
+      </select>
+  </div>
+          <br>
+
+      </div>
+
+      <br>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="guardareditarActor(actor)">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="EliminarModalactor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Actor</h5>
+      </div>
+      <div class="modal-body">
+
+        <br>
+        <p>¿Desea eliminar este actor?</p>
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="eliminarActor()" data-dismiss="modal" >Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>
