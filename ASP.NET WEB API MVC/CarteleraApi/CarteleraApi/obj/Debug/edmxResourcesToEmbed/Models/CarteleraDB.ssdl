@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarteleraModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Actores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="apellido" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="sexo" Type="char" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PeliculaActores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idpelicula" Type="int" Nullable="false" />
+    <Property Name="idactor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="genero" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="sinopsis" Type="text" Nullable="false" />
+    <Property Name="ano" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_PeliculaActores_Actores">
+    <End Role="Actores" Type="Self.Actores" Multiplicity="1" />
+    <End Role="PeliculaActores" Type="Self.PeliculaActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Actores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PeliculaActores">
+        <PropertyRef Name="idactor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PeliculaActores_Peliculas">
+    <End Role="Peliculas" Type="Self.Peliculas" Multiplicity="1" />
+    <End Role="PeliculaActores" Type="Self.PeliculaActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PeliculaActores">
+        <PropertyRef Name="idpelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CarteleraModelStoreContainer">
+    <EntitySet Name="Actores" EntityType="Self.Actores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeliculaActores" EntityType="Self.PeliculaActores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Peliculas" EntityType="Self.Peliculas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PeliculaActores_Actores" Association="Self.FK_PeliculaActores_Actores">
+      <End Role="Actores" EntitySet="Actores" />
+      <End Role="PeliculaActores" EntitySet="PeliculaActores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeliculaActores_Peliculas" Association="Self.FK_PeliculaActores_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="PeliculaActores" EntitySet="PeliculaActores" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
