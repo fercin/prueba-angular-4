@@ -32,54 +32,21 @@ namespace CarteleraApi.Controllers
 
         }
 
-        public HttpResponseMessage Post([FromBody]Actores newactor, int? id)
+        public HttpResponseMessage Post([FromBody]Actores newactor)
         {
-            //var ActorCreado = _db.Actores.First(x => x.nombre == newactor.nombre && x.apellido == newactor.apellido);
-
-            var relacion = new PeliculaActores();
-
+         
             var actor = _db.Actores.FirstOrDefault(x => x.nombre == newactor.nombre && x.apellido == newactor.apellido);
-            
-            var verifyRelation = _db.PeliculaActores.Where(x => x.idactor == actor.id && x.idpelicula == id.Value);
 
-           
-            
             if (actor == null)
             {
-
                 _db.Actores.Add(newactor);
                 _db.SaveChanges();
-                var idactor = newactor.id;
 
-                relacion.id = 0;
-                relacion.idactor = idactor;
-                relacion.idpelicula = id.Value;
-
-                _db.PeliculaActores.Add(relacion);
-                _db.SaveChanges();
-                
-
-                return new HttpResponseMessage(HttpStatusCode.Created);
-
-            }
-            
-
-            if (verifyRelation != null) {
-
-                relacion.idactor = actor.id;
-                relacion.idpelicula = id.Value;
-
-                _db.PeliculaActores.Add(relacion);
-
-                _db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.Created);
 
             }
             else{
-
-               
-
-
+                
                 return new HttpResponseMessage(HttpStatusCode.Created);
             }
             
@@ -89,36 +56,32 @@ namespace CarteleraApi.Controllers
         }
 
 
-        public HttpResponseMessage Delete(int id, int? idpeli)
+        public HttpResponseMessage Delete(int id)
         {
 
-            var relacion = _db.PeliculaActores.FirstOrDefault(x => x.idactor == id && x.idpelicula == idpeli.Value);
-            var CantidadRegistro = _db.PeliculaActores.Where(x => x.idactor == id).Count();
-
-
-
+            var peliactor = _db.PeliculaActores.Where(x => x.idactor == id);
             var deleteactor = _db.Actores.FirstOrDefault(x => x.id == id);
 
-
-
-            if (CantidadRegistro >1)
+            if (peliactor != null)
             {
-                _db.PeliculaActores.Remove(relacion);
+                _db.PeliculaActores.RemoveRange(peliactor);
+                _db.SaveChanges();
+            }
+
+
+
+            
+            if (deleteactor != null)
+            {
+                _db.Actores.Remove(deleteactor);
                 _db.SaveChanges();
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             else
             {
-                _db.PeliculaActores.Remove(relacion);
-
-
-                _db.Actores.Remove(deleteactor);
-                _db.SaveChanges();
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
-
-            
         }
 
         public HttpResponseMessage Put([FromBody]Actores oldactor)

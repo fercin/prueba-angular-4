@@ -53,31 +53,27 @@ namespace CarteleraApi.Controllers
         {
 
             var peliactor = _db.PeliculaActores.Where(x => x.idpelicula == id);
-            var idpelicula = _db.Peliculas.Find(id);
-        
-            foreach (var objecto in peliactor)
-            {
-                var sqlActores = _db.PeliculaActores.Where(x => x.idactor == objecto.Actores.id).Count();
-                var actor = _db.Actores.Find(objecto.Actores.id);
+            var deletepelicula = _db.Peliculas.FirstOrDefault(x => x.id == id);
 
-                if (sqlActores <= 1)
-                {
-                    _db.PeliculaActores.Remove(objecto);
-                    _db.Actores.Remove(actor);
-                    
-                }else
-                {
-                    _db.PeliculaActores.Remove(objecto);
-                }
-              
+            if (peliactor != null)
+            {
+                _db.PeliculaActores.RemoveRange(peliactor);
+                _db.SaveChanges();
             }
 
-            _db.Peliculas.Remove(idpelicula);
-
-            _db.SaveChanges();
-            return new HttpResponseMessage(HttpStatusCode.OK);
-        }
             
+            if (deletepelicula != null)
+            {
+                _db.Peliculas.Remove(deletepelicula);
+                _db.SaveChanges();
+                return new HttpResponseMessage(HttpStatusCode.OK);
+            }
+            else
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+
+        }
 
         public HttpResponseMessage Put([FromBody]Peliculas oldpeli)
         {
