@@ -33,15 +33,15 @@ getactor(id = ''){
   return this.http.get(this.urlactor + id);
 }
 
-postactor(objecto){
-  return this.http.post(this.urlactor, objecto);
+postactor(objecto, id= ''){
+  return this.http.post(this.urlactor + id, objecto);
 }
 
-deleteactor(objecto){
-  return this.http.delete(this.urlactor + objecto);
+deleteactor(objecto, idpeli= ''){
+  return this.http.delete(this.urlactor + objecto + '?idpeli=' + idpeli);
 }
 putactor(objecto){
-  return this.http.put(this.urlactor,objecto);
+  return this.http.put(this.urlactor, objecto);
 }
 
 

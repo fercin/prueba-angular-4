@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MiservicioService } from '../miservicio.service';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+declare var $: any;
 @Component({
   selector: 'app-pelicula',
   templateUrl: './pelicula.component.html',
@@ -10,30 +10,86 @@ import { ActivatedRoute } from '@angular/router';
 export class PeliculaComponent implements OnInit {
 
   pelicula: any;
+  actor: any;
+  actorcrear: any;
+  idpelicula: any;
+  deleteid: any;
+  constructor(private miservicio: MiservicioService, private activatedroute: ActivatedRoute, private mirouter: Router) {
+    this.actorcrear = {
+      id: 0,
+      nombre: '',
+      apellido: '',
+      sexo: 'none'
+    };
 
+    this.actor = {
 
-  constructor(private miservicio: MiservicioService, private activatedroute: ActivatedRoute) {
-
+             id: 0,
+             nombre: '',
+             apellido: '',
+             sexo: ''
+          };
     this.pelicula = {};
 
     this.activatedroute.params.subscribe(params => {
-
-      this.miservicio.getpelicula(params.id).subscribe(data =>{
+      this.idpelicula = params.id;
+      this.miservicio.getpelicula(params.id).subscribe(data => {
         this.pelicula = data.json();
-        console.log(this.pelicula);
-        console.log(this.pelicula.PeliculaActores[0]);
-        // for(let actores of this.pelicula.PeliculaActores){
-        //     console.log(actores.Actores.nombre);
-        // }
+
       });
 
     });
 
    }
+ ngOnInit() { }
+
+
+ guardaractor(actor){
+    console.log(actor);
+     this.miservicio.postactor(actor, this.idpelicula).subscribe(data => {
+     this.miservicio.getpelicula(this.idpelicula).subscribe(datos => {
+     this.pelicula = datos.json();
+     });
+   });
+
+
+  }
+
+
+// habre modal de pregunta para eliminar
+eliminar(id){
+  $('#EliminarModalactor').modal('show');
+  this.deleteid = id;
+
+}
+
+eliminarActor(){
+
+this.miservicio.deleteactor(this.deleteid, this.idpelicula).subscribe(data => {
+
+this.miservicio.getpelicula(this.idpelicula).subscribe(data => this.pelicula = data.json());
+
+});
+
+}
+
+editar(datos){
+// tslint:disable-next-line:prefer-const
+
+this.actor = datos;
+
+}
+
+guardareditarActor(actor){
+
+ this.miservicio.putactor(actor).subscribe(resp => console.log(resp));
+}
+
+verActor(id){
+this.mirouter.navigate(['/actor', id]);
+}
 
 
 
-
-  ngOnInit() { }
 
 }

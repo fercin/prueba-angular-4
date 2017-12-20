@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CarteleraModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sexo" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="PeliculaActores" Relationship="CarteleraModel.FK_PeliculaActores_Actores" FromRole="Actores" ToRole="PeliculaActores" />
+  </EntityType>
+  <EntityType Name="PeliculaActores">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idpelicula" Type="Int32" Nullable="false" />
+    <Property Name="idactor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Actores" Relationship="CarteleraModel.FK_PeliculaActores_Actores" FromRole="PeliculaActores" ToRole="Actores" />
+    <NavigationProperty Name="Peliculas" Relationship="CarteleraModel.FK_PeliculaActores_Peliculas" FromRole="PeliculaActores" ToRole="Peliculas" />
+  </EntityType>
+  <EntityType Name="Peliculas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sinopsis" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ano" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PeliculaActores" Relationship="CarteleraModel.FK_PeliculaActores_Peliculas" FromRole="Peliculas" ToRole="PeliculaActores" />
+  </EntityType>
+  <EntityContainer Name="CarteleraEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actores" EntityType="Self.Actores" />
+    <EntitySet Name="PeliculaActores" EntityType="Self.PeliculaActores" />
+    <EntitySet Name="Peliculas" EntityType="Self.Peliculas" />
+    <AssociationSet Name="FK_PeliculaActores_Actores" Association="CarteleraModel.FK_PeliculaActores_Actores">
+      <End Role="Actores" EntitySet="Actores" />
+      <End Role="PeliculaActores" EntitySet="PeliculaActores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PeliculaActores_Peliculas" Association="CarteleraModel.FK_PeliculaActores_Peliculas">
+      <End Role="Peliculas" EntitySet="Peliculas" />
+      <End Role="PeliculaActores" EntitySet="PeliculaActores" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_PeliculaActores_Actores">
+    <End Type="CarteleraModel.Actores" Role="Actores" Multiplicity="1" />
+    <End Type="CarteleraModel.PeliculaActores" Role="PeliculaActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Actores">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PeliculaActores">
+        <PropertyRef Name="idactor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PeliculaActores_Peliculas">
+    <End Type="CarteleraModel.Peliculas" Role="Peliculas" Multiplicity="1" />
+    <End Type="CarteleraModel.PeliculaActores" Role="PeliculaActores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Peliculas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PeliculaActores">
+        <PropertyRef Name="idpelicula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

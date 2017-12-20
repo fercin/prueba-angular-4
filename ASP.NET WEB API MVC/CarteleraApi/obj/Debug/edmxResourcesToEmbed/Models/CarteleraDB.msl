@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CarteleraModelStoreContainer" CdmEntityContainer="CarteleraEntities3">
+    <EntitySetMapping Name="Actores">
+      <EntityTypeMapping TypeName="CarteleraModel.Actores">
+        <MappingFragment StoreEntitySet="Actores">
+          <ScalarProperty Name="sexo" ColumnName="sexo" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeliculaActores">
+      <EntityTypeMapping TypeName="CarteleraModel.PeliculaActores">
+        <MappingFragment StoreEntitySet="PeliculaActores">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="idpelicula" ColumnName="idpelicula" />
+          <ScalarProperty Name="idactor" ColumnName="idactor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Peliculas">
+      <EntityTypeMapping TypeName="CarteleraModel.Peliculas">
+        <MappingFragment StoreEntitySet="Peliculas">
+          <ScalarProperty Name="ano" ColumnName="ano" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="genero" ColumnName="genero" />
+          <ScalarProperty Name="sinopsis" ColumnName="sinopsis" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
